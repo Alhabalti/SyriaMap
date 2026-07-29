@@ -22,11 +22,11 @@
 }
 
 html.dark {
-  --theme-bg: #002623;
-  --theme-card: #013531;
+  --theme-bg: #3d3a3b;
+  --theme-card: #2f2d2e;
   --theme-primary: #edebe0;
-  --theme-text-dim: #9ca3af; /* A nice light gray for dim text in dark mode */
-  --theme-accent: #117869;
+  --theme-text-dim: #9ca3af;
+  --theme-accent: #002623;
 }
 
 body {
