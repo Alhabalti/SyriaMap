@@ -387,11 +387,12 @@ export default function MapComponent() {
       // 3. Remove/Hide custom map viewport scaling buttons or temporary dragging cursors in the export if any (the cloned SVG is just paths & text labels)
       
       // 4. Insert a solid background rect at the beginning of the cloned SVG
-      // to match the app's elegant creamy background (#EDEBE0)
+      // to match the app's elegant creamy background (#EDEBE0) or dark mode
       const bgRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
       bgRect.setAttribute("width", "100%");
       bgRect.setAttribute("height", "100%");
-      bgRect.setAttribute("fill", "#EDEBE0");
+      const isDark = document.documentElement.classList.contains('dark');
+      bgRect.setAttribute("fill", isDark ? "#161616" : "#EDEBE0");
       svgClone.insertBefore(bgRect, svgClone.firstChild);
       
       // 5. Set universal clean font styles on the cloned SVG so labels render beautifully
@@ -483,8 +484,7 @@ export default function MapComponent() {
           
           {/* Map Container */}
           <div 
-            style={{ backgroundColor: "#EDEBE0" }}
-            className="relative rounded-xl border border-primary/20 overflow-hidden flex flex-col items-center justify-center p-3 min-h-[480px] select-none shadow-sm"
+            className="relative rounded-xl border border-primary/20 bg-bg overflow-hidden flex flex-col items-center justify-center p-3 min-h-[480px] select-none shadow-sm"
           >
             {/* Legend / Hover indicator */}
             <div className="absolute top-3 right-3 bg-bg/90 border border-primary/25 rounded-lg px-3 py-1.5 z-10 shadow-xs flex flex-col gap-0.5 pointer-events-none text-right">
