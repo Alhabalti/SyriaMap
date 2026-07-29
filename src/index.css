@@ -22,8 +22,8 @@
 }
 
 html.dark {
-  --theme-bg: #3d3a3b;
-  --theme-card: #2f2d2e;
+  --theme-bg: #161616;
+  --theme-card: #202020;
   --theme-primary: #edebe0;
   --theme-text-dim: #9ca3af;
   --theme-accent: #002623;
