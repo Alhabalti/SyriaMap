@@ -12,6 +12,8 @@ import {
   Navigation
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { fetchGovernorateWikiData, WikiData } from "../services/wikipediaApi";
+import CityWikiCard from "./CityWikiCard";
 import { syriaGovernorates, GovernorateData } from "../data/syriaData";
 import syriaGeoJSONData from "../data/syria_governorates.json";
 import syriaRepublicLogo from "../assets/images/regenerated_image_1779641320909.svg";
@@ -84,7 +86,12 @@ export default function MapComponent() {
   const [viewport, setViewport] = useState({ x: 0, y: 0, zoom: 1 });
   const [selectedGovId, setSelectedGovId] = useState<string | null>(null);
   const [hoveredGovId, setHoveredGovId] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"details" | "statistics" | "cities">("details");
+  const [activeTab, setActiveTab] = useState<"details" | "statistics" | "cities" | "wikipedia">("details");
+
+  // Wikipedia Data States
+  const [wikiData, setWikiData] = useState<WikiData | null>(null);
+  const [wikiLoading, setWikiLoading] = useState<boolean>(false);
+  const [wikiError, setWikiError] = useState<string | null>(null);
 
   // SVG Size references
   const svgWidth = 720;
@@ -291,6 +298,38 @@ export default function MapComponent() {
     }
     setActiveTab("details");
   };
+
+  // Fetch Wikipedia data when a new governorate is selected
+  React.useEffect(() => {
+    if (!selectedGovData) {
+      setWikiData(null);
+      setWikiError(null);
+      return;
+    }
+
+    let isMounted = true;
+    setWikiLoading(true);
+    setWikiError(null);
+    setWikiData(null);
+
+    fetchGovernorateWikiData(selectedGovData.nameAr)
+      .then((data) => {
+        if (isMounted) {
+          setWikiData(data);
+          setWikiLoading(false);
+        }
+      })
+      .catch((error) => {
+        if (isMounted) {
+          setWikiError(error.message);
+          setWikiLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [selectedGovData]);
 
   // Zooming helpers
   const handleZoomIn = () => {
@@ -695,6 +734,14 @@ export default function MapComponent() {
                     >
                       أرقام وجغرافيا
                     </button>
+                    <button
+                      onClick={() => setActiveTab("wikipedia")}
+                      className={`flex-1 py-3 text-center font-bold border-b-2 transition-all cursor-pointer ${
+                        activeTab === "wikipedia" ? "text-[#002623] border-b-2 border-[#002623] bg-[#002623]/5" : "text-[#3d3a3b] hover:bg-[#002623]/5"
+                      }`}
+                    >
+                      ويكيبيديا
+                    </button>
                   </div>
 
                   {/* Content View Section based on activeTab */}
@@ -760,15 +807,9 @@ export default function MapComponent() {
                       >
                         <span className="text-xs text-[#3d3a3b] font-bold block">أهم الحواضر، البلدات والمراكز السكنية:</span>
                         
-                        <div className="grid grid-cols-2 gap-1.5 text-[11px]">
+                        <div className="grid grid-cols-1 gap-1.5 text-[11px]">
                           {selectedGovData?.cities.map((city, idx) => (
-                            <div 
-                              key={idx}
-                              className="p-2 rounded bg-[#FAF9F5] text-[#002623] font-bold border border-[#002623]/10 flex items-center justify-between"
-                            >
-                              <span>{city}</span>
-                              <span className="font-mono text-[8px] text-[#3d3a3b] bg-[#EDEBE0] px-1.5 py-0.5 rounded border border-[#002623]/10">منطقة</span>
-                            </div>
+                            <CityWikiCard key={idx} cityName={city} />
                           ))}
                         </div>
                       </motion.div>
@@ -798,11 +839,61 @@ export default function MapComponent() {
                         <div className="p-2.5 rounded bg-[#EDEBE0]/40 border border-[#002623]/10 text-[11px] text-[#3d3a3b] leading-relaxed flex gap-2 font-medium">
                           <Info className="w-4 h-4 text-[#002623] shrink-0 mt-0.5" />
                           <div>
-                            القيم والمسوحات الجغرافية تتطابق مع سجلات الموارد الرسمية الصادرة.
+                            تعتمد الإحصائيات على بيانات تقريبية وقد تختلف قليلاً عن الأرقام الرسمية الحديثة.
                           </div>
                         </div>
                       </motion.div>
                     )}
+
+                    {activeTab === "wikipedia" && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="space-y-3"
+                      >
+                        {wikiLoading ? (
+                          <div className="flex flex-col items-center justify-center py-8 opacity-70">
+                            <div className="w-6 h-6 border-2 border-[#002623] border-t-transparent rounded-full animate-spin mb-2"></div>
+                            <span className="text-xs font-bold text-[#002623]">جاري جلب المعلومات من ويكيبيديا...</span>
+                          </div>
+                        ) : wikiError ? (
+                          <div className="p-3 bg-red-50 border border-red-200 rounded text-red-600 text-xs text-center font-bold">
+                            {wikiError}
+                          </div>
+                        ) : wikiData ? (
+                          <div className="space-y-3">
+                            {wikiData.originalImageUrl && (
+                              <div className="rounded overflow-hidden border border-[#002623]/15 shadow-sm max-h-[160px] flex items-center justify-center bg-black/5">
+                                <img 
+                                  src={wikiData.originalImageUrl} 
+                                  alt={`صورة لـ ${wikiData.title}`} 
+                                  className="w-full h-auto object-cover"
+                                  loading="lazy"
+                                />
+                              </div>
+                            )}
+                            <div className="space-y-1">
+                              <span className="text-xs text-[#3d3a3b] font-bold block flex items-center gap-1">
+                                <span className="inline-block w-1.5 h-1.5 bg-[#054239] rounded-full"></span>
+                                مقتطف ويكيبيديا ({wikiData.title})
+                              </span>
+                              <p className="text-[11px] text-[#002623] leading-relaxed font-sans font-medium text-justify">
+                                {wikiData.extract}
+                              </p>
+                              <a 
+                                href={`https://ar.wikipedia.org/wiki/${encodeURIComponent(wikiData.title)}`}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-block mt-2 text-[10px] text-blue-600 hover:underline font-bold"
+                              >
+                                اقرأ المزيد على ويكيبيديا ←
+                              </a>
+                            </div>
+                          </div>
+                        ) : null}
+                      </motion.div>
+                    )}
+
 
                   </div>
                   
