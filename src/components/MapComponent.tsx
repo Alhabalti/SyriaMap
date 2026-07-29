@@ -545,8 +545,11 @@ export default function MapComponent() {
               </defs>
               <rect width="100%" height="100%" fill="url(#grid)" />
 
-              {/* Central Map viewport group */}
-              <g transform={`translate(${viewport.x}, ${viewport.y}) scale(${viewport.zoom})`} className="transition-transform duration-200 ease-out font-sans">
+              <g 
+                transform={`translate(${viewport.x}, ${viewport.y}) scale(${viewport.zoom})`} 
+                className="font-sans"
+                style={{ transition: isDragging.current ? 'none' : 'transform 200ms ease-out' }}
+              >
                 
                 {/* 1. Draw Paths of Governorates */}
                 {[...projectedFeatures].sort((a, b) => {
