@@ -16,7 +16,7 @@ import { fetchGovernorateWikiData, WikiData } from "../services/wikipediaApi";
 import CityWikiCard from "./CityWikiCard";
 import { syriaGovernorates, GovernorateData } from "../data/syriaData";
 import syriaGeoJSONData from "../data/syria_governorates.json";
-import syriaRepublicLogo from "../assets/images/regenerated_image_1779641320909.svg";
+import SyriaLogo from "./SyriaLogo";
 
 // Helper function to map a GeoJSON feature to our governorate standard keys
 function getGovernorateKey(feature: any): string {
@@ -464,11 +464,9 @@ export default function MapComponent() {
       <div className="pb-4 border-b border-primary/15 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
         <div>
           <h1 className="flex items-center gap-3">
-            <img 
-              src={syriaRepublicLogo}
-              alt="شعار الجمهورية العربية السورية" 
-              className=" w-auto object-contain drop-shadow-md" 
-            />
+            <div className="h-10 w-auto drop-shadow-md flex items-center">
+              <SyriaLogo />
+            </div>
           </h1>
           <p className="text-xs text-text-dim mt-2 font-medium">
             تصفح تفاعلي للتقسيم الإداري، الحواضر السكانية، وأهم المعالم الحضارية والجغرافية
