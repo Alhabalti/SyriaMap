@@ -569,12 +569,12 @@ export default function MapComponent() {
                   const isHovered = hoveredGovId === item.key;
                   const isSelected = selectedGovId === item.key;
 
-                  // Soft beige-sand shades that stand out beautifully from the main `#edebe0` background
-                  let fillColor = "#D8D4C2"; // default solid earthy sand
+                  // Soft beige-sand shades that stand out beautifully from the main background
+                  let fillColor = "var(--theme-map-default)"; // default solid earthy sand
                   if (isSelected) {
-                    fillColor = "#002623"; // Deep forest selected state (high contrast, beautiful)
+                    fillColor = "var(--theme-map-selected)"; // Deep forest selected state (high contrast, beautiful)
                   } else if (isHovered) {
-                    fillColor = "#054239"; // Hover forest green
+                    fillColor = "var(--theme-map-hover)"; // Hover forest green
                   }
 
                   const [cx, cy] = item.centroid;
@@ -590,7 +590,7 @@ export default function MapComponent() {
                       <motion.path
                         d={item.path}
                         fill={fillColor}
-                        stroke="#EDEBE0" // creamy border matching page background
+                        stroke="var(--theme-map-stroke)" // creamy border matching page background
                         strokeWidth={isSelected ? 2.5 / viewport.zoom : 1.2 / viewport.zoom}
                         animate={{
                           strokeWidth: isSelected ? 2.5 / viewport.zoom : 1.2 / viewport.zoom,
@@ -618,8 +618,8 @@ export default function MapComponent() {
                         animate={{ scale: 1 }}
                         transition={{ type: "spring", stiffness: 300, damping: 20, delay: idx * 0.05 }}
                         r={viewport.zoom > 1.4 ? "0.8" : "2"}
-                        fill="#b92837"
-                        stroke="#FAF9F5"
+                        fill="var(--theme-map-dot)"
+                        stroke="var(--theme-bg)"
                         strokeWidth="0.4"
                         className="drop-shadow-sm cursor-help"
                       />
@@ -628,11 +628,11 @@ export default function MapComponent() {
                         animate={{ opacity: 1, x: offsetX, y: offsetY }}
                         transition={{ delay: idx * 0.05 + 0.1 }}
                         textAnchor="middle"
-                        fill="#002623"
+                        fill="var(--theme-primary)"
                         fontSize={Math.max(1.8, 5 / viewport.zoom)}
                         fontWeight="800"
                         className="font-sans antialiased select-none pointer-events-none drop-shadow-md"
-                        style={{ textShadow: "0px 0px 3px rgba(255,255,255,1), 0px 0px 2px rgba(255,255,255,1)" }}
+                        style={{ textShadow: "0px 0px 3px var(--theme-text-glow), 0px 0px 2px var(--theme-text-glow)" }}
                       >
                         {city.name}
                       </motion.text>

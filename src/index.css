@@ -19,6 +19,13 @@
   --theme-primary: #002623;
   --theme-text-dim: #3d3a3b;
   --theme-accent: #054239;
+  
+  --theme-map-default: #D8D4C2;
+  --theme-map-hover: #054239;
+  --theme-map-selected: #002623;
+  --theme-map-stroke: #edebe0;
+  --theme-map-dot: #b92837;
+  --theme-text-glow: rgba(255,255,255,1);
 }
 
 html.dark {
@@ -27,6 +34,13 @@ html.dark {
   --theme-primary: #edebe0;
   --theme-text-dim: #9ca3af;
   --theme-accent: #002623;
+  
+  --theme-map-default: #2a2a2a;
+  --theme-map-hover: #3d3a3b;
+  --theme-map-selected: #054239;
+  --theme-map-stroke: #161616;
+  --theme-map-dot: #ff475a; /* Brighter red dot for dark mode */
+  --theme-text-glow: rgba(0,0,0,0.8); /* Dark glow for text readability on map */
 }
 
 body {
