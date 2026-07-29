@@ -5,6 +5,28 @@
   --font-sans: "Cairo", "Inter", sans-serif;
   --font-display: "Space Grotesk", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
+  
+  --color-bg: var(--theme-bg);
+  --color-card: var(--theme-card);
+  --color-primary: var(--theme-primary);
+  --color-text-dim: var(--theme-text-dim);
+  --color-accent: var(--theme-accent);
+}
+
+:root {
+  --theme-bg: #edebe0;
+  --theme-card: #FAF9F5;
+  --theme-primary: #002623;
+  --theme-text-dim: #3d3a3b;
+  --theme-accent: #054239;
+}
+
+html.dark {
+  --theme-bg: #002623;
+  --theme-card: #013531;
+  --theme-primary: #edebe0;
+  --theme-text-dim: #9ca3af; /* A nice light gray for dim text in dark mode */
+  --theme-accent: #117869;
 }
 
 body {
@@ -15,8 +37,9 @@ body {
 
 /* Clean Geometric Square Grid Pattern */
 .arabesque-background {
-  background-color: #edebe0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='none' stroke='%23002623' stroke-width='0.5' stroke-opacity='0.05'/%3E%3C/svg%3E");
+  background-color: var(--theme-bg);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='none' stroke='currentColor' stroke-width='0.5' stroke-opacity='0.05'/%3E%3C/svg%3E");
+  color: var(--theme-primary); /* Sets currentColor for the SVG stroke */
 }
 
 /* Custom gorgeous thin scrollbar for high-density layouts */
@@ -25,12 +48,12 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #edebe0;
+  background: var(--theme-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: #054239;
+  background: var(--theme-accent);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #4a151e;
+  background: var(--theme-primary);
 }

@@ -460,7 +460,7 @@ export default function MapComponent() {
     <div className="w-full flex flex-col gap-5 font-sans" dir="rtl">
       
       {/* Sleek Minimal Header */}
-      <div className="pb-4 border-b border-[#002623]/15 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+      <div className="pb-4 border-b border-primary/15 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
         <div>
           <h1 className="flex items-center gap-3">
             <img 
@@ -469,7 +469,7 @@ export default function MapComponent() {
               className=" w-auto object-contain drop-shadow-md" 
             />
           </h1>
-          <p className="text-xs text-[#3d3a3b] mt-2 font-medium">
+          <p className="text-xs text-text-dim mt-2 font-medium">
             تصفح تفاعلي للتقسيم الإداري، الحواضر السكانية، وأهم المعالم الحضارية والجغرافية
           </p>
         </div>
@@ -484,11 +484,11 @@ export default function MapComponent() {
           {/* Map Container */}
           <div 
             style={{ backgroundColor: "#EDEBE0" }}
-            className="relative rounded-xl border border-[#002623]/20 overflow-hidden flex flex-col items-center justify-center p-3 min-h-[480px] select-none shadow-sm"
+            className="relative rounded-xl border border-primary/20 overflow-hidden flex flex-col items-center justify-center p-3 min-h-[480px] select-none shadow-sm"
           >
             {/* Legend / Hover indicator */}
-            <div className="absolute top-3 right-3 bg-[#edebe0]/90 border border-[#002623]/25 rounded-lg px-3 py-1.5 z-10 shadow-xs flex flex-col gap-0.5 pointer-events-none text-right">
-              <span className="text-sm font-black text-[#002623]">
+            <div className="absolute top-3 right-3 bg-bg/90 border border-primary/25 rounded-lg px-3 py-1.5 z-10 shadow-xs flex flex-col gap-0.5 pointer-events-none text-right">
+              <span className="text-sm font-black text-primary">
                 {hoveredGovId ? syriaGovernorates.find(g => g.id === hoveredGovId)?.nameAr : "سوريا  "}
               </span>
             </div>
@@ -498,21 +498,21 @@ export default function MapComponent() {
               <button 
                 onClick={handleZoomIn}
                 title="تكبير"
-                className="p-2 rounded-lg bg-[#FAF9F5] hover:bg-[#edebe0] text-[#002623] border border-[#002623]/20 shadow-xs hover:scale-[1.03] transition-all cursor-pointer"
+                className="p-2 rounded-lg bg-card hover:bg-bg text-primary border border-primary/20 shadow-xs hover:scale-[1.03] transition-all cursor-pointer"
               >
                 <ZoomIn className="w-4 h-4" />
               </button>
               <button 
                 onClick={handleZoomOut}
                 title="تصغير"
-                className="p-2 rounded-lg bg-[#FAF9F5] hover:bg-[#edebe0] text-[#002623] border border-[#002623]/20 shadow-xs hover:scale-[1.03] transition-all cursor-pointer"
+                className="p-2 rounded-lg bg-card hover:bg-bg text-primary border border-primary/20 shadow-xs hover:scale-[1.03] transition-all cursor-pointer"
               >
                 <ZoomOut className="w-4 h-4" />
               </button>
             </div>
 
             {/* Compass Rose Hud */}
-            <div className="absolute top-3 left-3 flex items-center justify-center w-8 h-8 bg-[#FAF9F5]/90 border border-[#002623]/20 rounded-full text-[#002623] pointer-events-none shadow-sm" title="الشمال">
+            <div className="absolute top-3 left-3 flex items-center justify-center w-8 h-8 bg-card/90 border border-primary/20 rounded-full text-primary pointer-events-none shadow-sm" title="الشمال">
               <Navigation className="w-4 h-4 text-[#b92837] fill-current" style={{ transform: 'rotate(-45deg)' }} />
             </div>
 
@@ -521,9 +521,9 @@ export default function MapComponent() {
               <button 
                 onClick={handleExportPNG}
                 title="تصدير الخريطة الحالية كصورة عالية الدقة لتبادلها"
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#FAF9F5]/95 hover:bg-[#edebe0] text-[#002623] border border-[#002623]/25 shadow-sm hover:scale-[1.03] active:scale-[0.97] transition-all cursor-pointer text-xs font-bold"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-card/95 hover:bg-bg text-primary border border-primary/25 shadow-sm hover:scale-[1.03] active:scale-[0.97] transition-all cursor-pointer text-xs font-bold"
               >
-                <Download className="w-4 h-4 text-[#054239]" />
+                <Download className="w-4 h-4 text-accent" />
                 <span>تحميل الخريطة</span>
               </button>
             </div>
@@ -652,7 +652,7 @@ export default function MapComponent() {
           {/* Details / Interactive Panel View */}
           <div 
             style={{ borderColor: "#002623" }}
-            className="flex-1 rounded-xl border border-[#002623]/20 bg-[#FAF9F5]/70 overflow-hidden flex flex-col min-h-[440px]"
+            className="flex-1 rounded-xl border border-primary/20 bg-card/70 overflow-hidden flex flex-col min-h-[440px]"
           >
             <AnimatePresence mode="wait">
               {!selectedGovId ? (
@@ -662,7 +662,7 @@ export default function MapComponent() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.25, ease: "easeOut" }}
-                  className="flex-1 flex flex-col justify-center p-6 select-none bg-[#002623]/5 w-full"
+                  className="flex-1 flex flex-col justify-center p-6 select-none bg-primary/5 w-full"
                 >
                   <div className="w-full">
                     <div className="grid grid-cols-2 xs:grid-cols-3 gap-2">
@@ -670,7 +670,7 @@ export default function MapComponent() {
                         <button
                           key={gov.id}
                           onClick={() => handleSelectGov(gov.id)}
-                          className="py-3 px-3.5 text-xs text-center bg-[#EDEBE0] hover:bg-[#002623] hover:text-[#EDEBE0] rounded-lg border border-[#002623]/10 transition-all text-[#002623] cursor-pointer font-bold duration-200 active:scale-95 shadow-xs"
+                          className="py-3 px-3.5 text-xs text-center bg-bg hover:bg-primary hover:text-bg rounded-lg border border-primary/10 transition-all text-primary cursor-pointer font-bold duration-200 active:scale-95 shadow-xs"
                         >
                           {gov.nameAr}
                         </button>
@@ -686,34 +686,34 @@ export default function MapComponent() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.25, ease: "easeOut" }}
-                  className="flex-1 flex flex-col h-full bg-[#FAF9F5] w-full"
+                  className="flex-1 flex flex-col h-full bg-card w-full"
                 >
                   
                   {/* Header Information Card */}
-                  <div className="p-4 bg-[#EDEBE0] border-b border-[#002623]/15 flex justify-between items-start gap-3">
+                  <div className="p-4 bg-bg border-b border-primary/15 flex justify-between items-start gap-3">
                     <div>
-                      <span className="text-[9px] text-[#3d3a3b] font-bold block">صحيفة المحافظة الإدارية</span>
-                      <h2 className="text-lg font-black text-[#002623] flex items-center gap-1.5">
+                      <span className="text-[9px] text-text-dim font-bold block">صحيفة المحافظة الإدارية</span>
+                      <h2 className="text-lg font-black text-primary flex items-center gap-1.5">
                         <MapPin className="w-4 h-4 text-[#4a151e]" />
                         {selectedGovData?.nameAr}
-                        <span className="text-xs text-[#3d3a3b] font-mono font-normal mr-1">({selectedGovData?.nameEn})</span>
+                        <span className="text-xs text-text-dim font-mono font-normal mr-1">({selectedGovData?.nameEn})</span>
                       </h2>
                     </div>
                     <button
                       onClick={() => setSelectedGovId(null)}
                       title="إغلاق التحديد"
-                      className="p-1 rounded bg-[#002623]/5 hover:bg-[#4a151e]/10 text-[#4a151e] transition-all border border-[#002623]/10 cursor-pointer"
+                      className="p-1 rounded bg-primary/5 hover:bg-[#4a151e]/10 text-[#4a151e] transition-all border border-primary/10 cursor-pointer"
                     >
                       <X className="w-4.5 h-4.5" />
                     </button>
                   </div>
 
                   {/* Tabs selection details/statistics/landmarks */}
-                  <div className="flex border-b border-[#002623]/10 bg-[#FAF9F5] text-xs">
+                  <div className="flex border-b border-primary/10 bg-card text-xs">
                     <button
                       onClick={() => setActiveTab("details")}
                       className={`flex-1 py-3 text-center font-bold border-b-2 transition-all cursor-pointer ${
-                        activeTab === "details" ? "text-[#002623] border-b-2 border-[#002623] bg-[#002623]/5" : "text-[#3d3a3b] hover:bg-[#002623]/5"
+                        activeTab === "details" ? "text-primary border-b-2 border-primary bg-primary/5" : "text-text-dim hover:bg-primary/5"
                       }`}
                     >
                       الملخص العام
@@ -721,7 +721,7 @@ export default function MapComponent() {
                     <button
                       onClick={() => setActiveTab("cities")}
                       className={`flex-1 py-3 text-center font-bold border-b-2 transition-all cursor-pointer ${
-                        activeTab === "cities" ? "text-[#002623] border-b-2 border-[#002623] bg-[#002623]/5" : "text-[#3d3a3b] hover:bg-[#002623]/5"
+                        activeTab === "cities" ? "text-primary border-b-2 border-primary bg-primary/5" : "text-text-dim hover:bg-primary/5"
                       }`}
                     >
                       المدن الهامة ({selectedGovData?.cities.length})
@@ -729,7 +729,7 @@ export default function MapComponent() {
                     <button
                       onClick={() => setActiveTab("statistics")}
                       className={`flex-1 py-3 text-center font-bold border-b-2 transition-all cursor-pointer ${
-                        activeTab === "statistics" ? "text-[#002623] border-b-2 border-[#002623] bg-[#002623]/5" : "text-[#3d3a3b] hover:bg-[#002623]/5"
+                        activeTab === "statistics" ? "text-primary border-b-2 border-primary bg-primary/5" : "text-text-dim hover:bg-primary/5"
                       }`}
                     >
                       أرقام وجغرافيا
@@ -737,10 +737,10 @@ export default function MapComponent() {
                     <button
                       onClick={() => setActiveTab("wikipedia")}
                       className={`flex-1 py-3 text-center font-bold border-b-2 transition-all cursor-pointer ${
-                        activeTab === "wikipedia" ? "text-[#002623] border-b-2 border-[#002623] bg-[#002623]/5" : "text-[#3d3a3b] hover:bg-[#002623]/5"
+                        activeTab === "wikipedia" ? "text-primary border-b-2 border-primary bg-primary/5" : "text-text-dim hover:bg-primary/5"
                       }`}
                     >
-                      ويكيبيديا
+                      معلومات إضافية
                     </button>
                   </div>
 
@@ -755,31 +755,31 @@ export default function MapComponent() {
                       >
                         {/* Description */}
                         <div className="space-y-1">
-                          <span className="text-xs text-[#3d3a3b] font-bold block">نبذة عامة:</span>
-                          <p className="text-xs text-[#002623] leading-relaxed font-sans font-medium">
+                          <span className="text-xs text-text-dim font-bold block">نبذة عامة:</span>
+                          <p className="text-xs text-primary leading-relaxed font-sans font-medium">
                             {selectedGovData?.description}
                           </p>
                         </div>
 
-                        <hr className="border-[#002623]/10" />
+                        <hr className="border-primary/10" />
 
                         {/* Climate */}
                         <div className="grid grid-cols-2 gap-2 text-[11px]">
-                          <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#002623]/10">
-                            <span className="text-[#3d3a3b] block font-bold mb-0.5">الحالة المناخية:</span>
-                            <span className="text-[#002623] font-semibold">{selectedGovData?.climate}</span>
+                          <div className="p-2 rounded-lg bg-card border border-primary/10">
+                            <span className="text-text-dim block font-bold mb-0.5">الحالة المناخية:</span>
+                            <span className="text-primary font-semibold">{selectedGovData?.climate}</span>
                           </div>
-                          <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#002623]/10">
-                            <span className="text-[#3d3a3b] block font-bold mb-0.5">النشاط الاقتصادي:</span>
-                            <span className="text-[#002623] font-semibold">{selectedGovData?.economy}</span>
+                          <div className="p-2 rounded-lg bg-card border border-primary/10">
+                            <span className="text-text-dim block font-bold mb-0.5">النشاط الاقتصادي:</span>
+                            <span className="text-primary font-semibold">{selectedGovData?.economy}</span>
                           </div>
                         </div>
 
-                        <hr className="border-[#002623]/10" />
+                        <hr className="border-primary/10" />
 
                         {/* Landmarks */}
                         <div className="space-y-1.5">
-                          <span className="text-xs text-[#3d3a3b] font-bold flex items-center gap-1">
+                          <span className="text-xs text-text-dim font-bold flex items-center gap-1">
                             <Compass className="w-3.5 h-3.5 text-[#4a151e]" />
                             أبرز المعالم العريقة والتاريخية:
                           </span>
@@ -788,9 +788,9 @@ export default function MapComponent() {
                               <motion.span
                                 key={idx}
                                 whileTap={{ scale: 1.15 }}
-                                className="text-[10px] px-2 py-0.5 rounded border border-[#002623]/20 bg-[#FAF9F5] text-[#002623] flex items-center gap-1 font-bold cursor-pointer select-none"
+                                className="text-[10px] px-2 py-0.5 rounded border border-primary/20 bg-card text-primary flex items-center gap-1 font-bold cursor-pointer select-none"
                               >
-                                <CheckCircle className="w-3 h-3 text-[#054239]" />
+                                <CheckCircle className="w-3 h-3 text-accent" />
                                 {landmark}
                               </motion.span>
                             ))}
@@ -805,7 +805,7 @@ export default function MapComponent() {
                         animate={{ opacity: 1, y: 0 }}
                         className="space-y-2.5"
                       >
-                        <span className="text-xs text-[#3d3a3b] font-bold block">أهم الحواضر، البلدات والمراكز السكنية:</span>
+                        <span className="text-xs text-text-dim font-bold block">أهم الحواضر، البلدات والمراكز السكنية:</span>
                         
                         <div className="grid grid-cols-1 gap-1.5 text-[11px]">
                           {selectedGovData?.cities.map((city, idx) => (
@@ -823,21 +823,21 @@ export default function MapComponent() {
                       >
                         <div className="space-y-2">
                           {/* Area Stat */}
-                          <div className="p-2.5 rounded border border-[#002623]/10 bg-[#FAF9F5] flex justify-between items-center text-xs">
-                            <span className="text-[#3d3a3b] font-bold">المساحة الجغرافية:</span>
-                            <span className="font-mono text-xs font-black text-[#002623]">{selectedGovData?.area}</span>
+                          <div className="p-2.5 rounded border border-primary/10 bg-card flex justify-between items-center text-xs">
+                            <span className="text-text-dim font-bold">المساحة الجغرافية:</span>
+                            <span className="font-mono text-xs font-black text-primary">{selectedGovData?.area}</span>
                           </div>
 
                           {/* Population Stat */}
-                          <div className="p-2.5 rounded border border-[#002623]/10 bg-[#FAF9F5] flex justify-between items-center text-xs">
-                            <span className="text-[#3d3a3b] font-bold">التعداد السكاني التقريبي:</span>
-                            <span className="text-[#002623] font-black">{selectedGovData?.population}</span>
+                          <div className="p-2.5 rounded border border-primary/10 bg-card flex justify-between items-center text-xs">
+                            <span className="text-text-dim font-bold">التعداد السكاني التقريبي:</span>
+                            <span className="text-primary font-black">{selectedGovData?.population}</span>
                           </div>
                         </div>
 
                         {/* Informative advice */}
-                        <div className="p-2.5 rounded bg-[#EDEBE0]/40 border border-[#002623]/10 text-[11px] text-[#3d3a3b] leading-relaxed flex gap-2 font-medium">
-                          <Info className="w-4 h-4 text-[#002623] shrink-0 mt-0.5" />
+                        <div className="p-2.5 rounded bg-bg/40 border border-primary/10 text-[11px] text-text-dim leading-relaxed flex gap-2 font-medium">
+                          <Info className="w-4 h-4 text-primary shrink-0 mt-0.5" />
                           <div>
                             تعتمد الإحصائيات على بيانات تقريبية وقد تختلف قليلاً عن الأرقام الرسمية الحديثة.
                           </div>
@@ -853,8 +853,8 @@ export default function MapComponent() {
                       >
                         {wikiLoading ? (
                           <div className="flex flex-col items-center justify-center py-8 opacity-70">
-                            <div className="w-6 h-6 border-2 border-[#002623] border-t-transparent rounded-full animate-spin mb-2"></div>
-                            <span className="text-xs font-bold text-[#002623]">جاري جلب المعلومات من ويكيبيديا...</span>
+                            <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin mb-2"></div>
+                            <span className="text-xs font-bold text-primary">جاري جلب المعلومات من ويكيبيديا...</span>
                           </div>
                         ) : wikiError ? (
                           <div className="p-3 bg-red-50 border border-red-200 rounded text-red-600 text-xs text-center font-bold">
@@ -863,7 +863,7 @@ export default function MapComponent() {
                         ) : wikiData ? (
                           <div className="space-y-3">
                             {wikiData.originalImageUrl && (
-                              <div className="rounded overflow-hidden border border-[#002623]/15 shadow-sm max-h-[160px] flex items-center justify-center bg-black/5">
+                              <div className="rounded overflow-hidden border border-primary/15 shadow-sm max-h-[160px] flex items-center justify-center bg-black/5">
                                 <img 
                                   src={wikiData.originalImageUrl} 
                                   alt={`صورة لـ ${wikiData.title}`} 
@@ -873,21 +873,13 @@ export default function MapComponent() {
                               </div>
                             )}
                             <div className="space-y-1">
-                              <span className="text-xs text-[#3d3a3b] font-bold block flex items-center gap-1">
-                                <span className="inline-block w-1.5 h-1.5 bg-[#054239] rounded-full"></span>
-                                مقتطف ويكيبيديا ({wikiData.title})
+                              <span className="text-xs text-text-dim font-bold block flex items-center gap-1">
+                                <span className="inline-block w-1.5 h-1.5 bg-accent rounded-full"></span>
+                                نبذة تفصيلية ({wikiData.title})
                               </span>
-                              <p className="text-[11px] text-[#002623] leading-relaxed font-sans font-medium text-justify">
+                              <p className="text-[11px] text-primary leading-relaxed font-sans font-medium text-justify">
                                 {wikiData.extract}
                               </p>
-                              <a 
-                                href={`https://ar.wikipedia.org/wiki/${encodeURIComponent(wikiData.title)}`}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="inline-block mt-2 text-[10px] text-blue-600 hover:underline font-bold"
-                              >
-                                اقرأ المزيد على ويكيبيديا ←
-                              </a>
                             </div>
                           </div>
                         ) : null}
